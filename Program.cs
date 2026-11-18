@@ -21,7 +21,7 @@ public class Patient
     }
     public void DisplayInfo()
     {
-        Console.WriteLine("---------------------------------"); 
+        Console.WriteLine("---------------------------------");
         Console.WriteLine("Patient ID: " + PatientId);
         Console.WriteLine("Name: " + FullName);
         Console.WriteLine("Age: " + Age);
@@ -32,5 +32,58 @@ public class Patient
     public override string ToString()
     {
         return PatientId + " - " + FullName + "(Priority: " + PriorityLevel + ")";
+    }
+}
+
+// Custom Stack ADT
+// LIFO    (Last In First Out)
+public class CustomStack
+{
+    private string[] items;
+    private int top;
+
+    public CustomStack(int capacity)
+    {
+        items = new string[capacity];
+        top = -1;
+    }
+    public bool IsEmpty()
+    {
+        return top == -1;
+    }
+    public bool Push(string item)
+    {
+        if (top == items.Length - 1)
+            return false;
+        top++;
+        items[top] = item;
+        return true;
+    }
+    public string Pop()
+    {
+        if (IsEmpty())
+            return null;
+        string item = items[top];
+        top--;
+        return item;
+    }
+    public string Peek()
+    {
+        if (IsEmpty())
+            return null;
+        return items[top];
+    }
+    public void DisplayStack()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("No Action History Available.");
+            return;
+        }
+        Console.WriteLine("\nAction History:");
+        for (int i = top; i >= 0; i--)
+        {
+            Console.WriteLine(items[i]);
+        }
     }
 }
