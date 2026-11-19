@@ -87,3 +87,69 @@ public class CustomStack
         }
     }
 }
+
+//CUSTOM PRIORITY QUEUE ADT
+public class CustomPriorityQueue
+{
+    private Patient[] items;
+    private int[] priorities;
+    private int count;
+
+    public CustomPriorityQueue(int capacity)
+    {
+        items = new Patient[capacity];
+        priorities = new int[capacity];
+        count = 0;
+    }
+    public bool IsEmpty()
+    {
+        return count == 0;
+    }
+    public bool Enqueue(Patient patient, int priority)
+    {
+        if(count == items.Length)
+            return false;
+        
+        int position = count;
+
+        while (position > 0 && priorities[position - 1] < priority)
+        {
+            items[position] = items[position - 1];
+            priorities[position] = priorities[position - 1];
+            position--;
+        }
+        items[position] = patient;
+        priorities[position] = priority;
+        count++;
+        return true;
+    }
+    public Patient Dequeue()
+    {
+        if (IsEmpty())
+            return null;
+        Patient patient = items[0];
+        for (int i = 1; i < count; i++)
+        {
+            items[i - 1] = items[i];
+            priorities[i - 1] = priorities[i];
+        }
+        count--;
+        items[count] = null;
+        priorities[count] = 0;
+        return patient;
+    }
+    public void Display()
+    {
+        if (IsEmpty())
+        {
+            Console.WriteLine("No Emergency Patient Waiting.");
+            return;
+        }
+        Console.WriteLine("\nEMEREGENCY TRIAGE:");
+        for(int i = 0; i < count; i++)
+        {
+            Console.WriteLine(items[i] + " - Priority " + priorities[i]);
+        }
+
+    }
+}
